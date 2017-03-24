@@ -1,2 +1,3 @@
-#ignore libs
+#ignore libs, o files
 *.a
+*.o
