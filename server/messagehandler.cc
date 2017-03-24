@@ -2,6 +2,7 @@
 #include "connection.h"
 #include <string>
 #include <memory>
+#include <iostream>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ void writeNumber(const Connection& conn, int value) {
 std::string readString(const Connection& conn) {
   std::string s;
   char ch;
-  while ((ch = conn.read()) != ’$’) {
+  while ((ch = conn.read()) != '$') {
     s += ch;
   }
   return s;
@@ -33,5 +34,5 @@ void writeString(const std::shared_ptr<Connection>& conn, const std::string& s) 
   for (char c : s) {
     conn->write(c);
   }
-  conn->write(’$’);
+  conn->write('$');
 }

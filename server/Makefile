@@ -15,26 +15,21 @@ CXXFLAGS += -std=c++11
 CXXFLAGS += -g
 CXXFLAGS += $(DEPFLAGS)
 LDFLAGS =   -g -L .
-LDLIBS = -l lab1
+LDLIBS = -l clientserver
 #CPPFLAGS += -stdlib=libc++
 #CXXFLAGS += -stdlib=libc++
 #LDFLAGS +=  -stdlib=libc++
 
 # Targets
-PROGS = ltest encode decode
+PROGS = messagehandler mainserver
+
+messagehandler: messagehandler.o
+
+mainserver: mainserver.o messagehandler.o
 
 all: $(PROGS)
 
-# Targets rely on implicit rules for compiling and linking
-ltest: ltest.o
 
-hello: hello.o
-
-coding: coding.o
-
-encode: encode.o
-
-decode: decode.o
 
 # Phony targets
 .PHONY: all clean
