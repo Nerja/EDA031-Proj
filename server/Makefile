@@ -21,9 +21,7 @@ LDLIBS = -l clientserver
 #LDFLAGS +=  -stdlib=libc++
 
 # Targets
-PROGS = messagehandler mainserver
-
-messagehandler: messagehandler.o
+PROGS = mainserver
 
 mainserver: mainserver.o messagehandler.o
 

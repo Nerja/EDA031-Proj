@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <cstdlib>
 #include "messagehandler.h"
+#include "protocol.h"
 
 using namespace std;
 
@@ -31,16 +32,14 @@ int main(int argc, char* argv[]){
     auto conn = server.waitForActivity();
     if (conn != nullptr) {
       try {
-        int nbr = readNumber(conn);
-        string result;
-        if (nbr > 0) {
-          result = "positive";
-        } else if (nbr == 0) {
-          result = "zero";
-        } else {
-          result = "negative";
+        auto command = readByte(conn);
+        switch(command) {
+          case Protocol::COM_LIST_NG:
+            cout << "yay" << endl;
+          break;
         }
-        writeString(conn, result);
+        auto end = readByte(conn);
+        cout << to_string(end) << endl;
       } catch (ConnectionClosedException&) {
         server.deregisterConnection(conn);
         cout << "Client closed connection" << endl;

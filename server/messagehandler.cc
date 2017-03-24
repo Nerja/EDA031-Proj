@@ -30,6 +30,14 @@ int readNumber(const shared_ptr<Connection>& conn) {
   return (byte1 << 24) | (byte2 << 16) | (byte3 << 8) | byte4;
 }
 
+unsigned char readByte(const shared_ptr<Connection>& conn) {
+  return conn->read();
+}
+
+void writeByte(const shared_ptr<Connection>& conn, unsigned char data) {
+  conn->write(data);
+}
+
 void writeString(const std::shared_ptr<Connection>& conn, const std::string& s) {
   for (char c : s) {
     conn->write(c);
