@@ -62,7 +62,10 @@ int main(int argc, char* argv[]){
             break;
         }
         auto end = readByte(conn);
-        cout << to_string(end) << endl;
+        if(end != Protocol::ANS_END) {
+            cout << "Protocol problems, client disconnected!" << endl;
+            server.deregisterConnection(conn);
+        }
       } catch (ConnectionClosedException&) {
         server.deregisterConnection(conn);
         cout << "Client closed connection" << endl;
