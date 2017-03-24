@@ -37,25 +37,25 @@ int main(int argc, char* argv[]){
         auto command = readByte(conn);
         switch(command) {
           case Protocol::COM_LIST_NG:
-            command_parser.list_newsgroup();
+            command_parser.list_newsgroup(conn);
           break;
           case Protocol::COM_CREATE_NG:
-            command_parser.create_newsgroup();
+            command_parser.create_newsgroup(conn);
           break;
           case Protocol::COM_DELETE_NG:
-            command_parser.delete_newsgroup();
+            command_parser.delete_newsgroup(conn);
           break;
           case Protocol::COM_LIST_ART:
-            command_parser.list_articles();
+            command_parser.list_articles(conn);
           break;
           case Protocol::COM_CREATE_ART:
-            command_parser.create_article();
+            command_parser.create_article(conn);
           break;
           case Protocol::COM_DELETE_ART:
-            command_parser.delete_article();
+            command_parser.delete_article(conn);
           break;
           case Protocol::COM_GET_ART:
-            command_parser.get_article();
+            command_parser.get_article(conn);
           break;
           default:
             cout << "Violation of protocol, idiot" << endl;

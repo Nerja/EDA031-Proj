@@ -3,23 +3,33 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include "protocol.h"
 
 using namespace std;
 
-void writeNumber(const Connection& conn, int value) {
-  conn.write((value >> 24) & 0xFF);
-  conn.write((value >> 16) & 0xFF);
-  conn.write((value >> 8)  & 0xFF);
-  conn.write(value & 0xFF);
+void writeNumber(const shared_ptr<Connection>& conn, int value) {
+  conn->write((value >> 24) & 0xFF);
+  conn->write((value >> 16) & 0xFF);
+  conn->write((value >> 8)  & 0xFF);
+  conn->write(value & 0xFF);
 }
 
-std::string readString(const Connection& conn) {
-  std::string s;
-  char ch;
-  while ((ch = conn.read()) != '$') {
-    s += ch;
-  }
+std::string readString_p(const shared_ptr<Connection>& conn) {
+  string s;
+  unsigned char byte = conn->read();
+  if(byte != Protocol::PAR_STRING)
+    throw invalid_argument("protocol violation");
+  int number_chars = readNumber(conn);
+  for(int i = 0; i != number_chars; ++i)
+    s += static_cast<char>(conn->read());
   return s;
+}
+
+int readNumber_p(const shared_ptr<Connection>& conn) {
+  unsigned char p_byte = conn->read();
+  if(p_byte != Protocol::PAR_NUM)
+    throw invalid_argument("protocol violation");
+  return readNumber(conn);
 }
 
 int readNumber(const shared_ptr<Connection>& conn) {

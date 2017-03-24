@@ -1,5 +1,6 @@
 mainserver.o: mainserver.cc server.h connection.h \
- connectionclosedexception.h messagehandler.h protocol.h
+  connectionclosedexception.h messagehandler.h protocol.h \
+  commandparser.h
 
 server.h:
 
@@ -10,3 +11,5 @@ connectionclosedexception.h:
 messagehandler.h:
 
 protocol.h:
+
+commandparser.h:
