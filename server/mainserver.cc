@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include "messagehandler.h"
 #include "protocol.h"
+#include "commandparser.h"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ int main(int argc, char* argv[]){
     cerr << "Server initialization error." << endl;
     exit(1);
   }
+  CommandParser command_parser;
   while (true) {
     auto conn = server.waitForActivity();
     if (conn != nullptr) {
@@ -35,8 +37,29 @@ int main(int argc, char* argv[]){
         auto command = readByte(conn);
         switch(command) {
           case Protocol::COM_LIST_NG:
-            cout << "yay" << endl;
+            command_parser.list_newsgroup();
           break;
+          case Protocol::COM_CREATE_NG:
+            command_parser.create_newsgroup();
+          break;
+          case Protocol::COM_DELETE_NG:
+            command_parser.delete_newsgroup();
+          break;
+          case Protocol::COM_LIST_ART:
+            command_parser.list_articles();
+          break;
+          case Protocol::COM_CREATE_ART:
+            command_parser.create_article();
+          break;
+          case Protocol::COM_DELETE_ART:
+            command_parser.delete_article();
+          break;
+          case Protocol::COM_GET_ART:
+            command_parser.get_article();
+          break;
+          default:
+            cout << "Violation of protocol, idiot" << endl;
+            break;
         }
         auto end = readByte(conn);
         cout << to_string(end) << endl;

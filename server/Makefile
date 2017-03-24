@@ -15,7 +15,7 @@ CXXFLAGS += -std=c++11
 CXXFLAGS += -g
 CXXFLAGS += $(DEPFLAGS)
 LDFLAGS =   -g -L .
-LDLIBS = -l clientserver
+LDLIBS = -lclientserver
 #CPPFLAGS += -stdlib=libc++
 #CXXFLAGS += -stdlib=libc++
 #LDFLAGS +=  -stdlib=libc++
@@ -23,7 +23,7 @@ LDLIBS = -l clientserver
 # Targets
 PROGS = mainserver
 
-mainserver: mainserver.o messagehandler.o
+mainserver: mainserver.o messagehandler.o commandparser.o
 
 all: $(PROGS)
 
