@@ -1,5 +1,5 @@
 messagehandler.o: messagehandler.cc messagehandler.h connection.h \
-  protocol.h
+ protocol.h
 
 messagehandler.h:
 

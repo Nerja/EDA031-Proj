@@ -48,9 +48,15 @@ void writeByte(const shared_ptr<Connection>& conn, unsigned char data) {
   conn->write(data);
 }
 
-void writeString(const std::shared_ptr<Connection>& conn, const std::string& s) {
-  for (char c : s) {
+void writeNumber_p(const std::shared_ptr<Connection>& conn, int n) {
+  conn->write(Protocol::PAR_NUM);
+  writeNumber(conn, n);
+}
+
+void writeString_p(const std::shared_ptr<Connection>& conn, const std::string& s) {
+  conn->write(Protocol::PAR_STRING);
+  writeNumber(conn, s.length());
+  for(auto& c : s) {
     conn->write(c);
   }
-  conn->write('$');
 }
