@@ -12,6 +12,7 @@ std::string Article::get_title() const { return title; }
 std::string Article::get_author() const { return author; }
 std::string Article::get_text() const { return text; }
 int Article::get_id() const { return article_id; }
+time_t Article::get_time() const { return time_of_creation; }
 
 // for sorting articles by time of creation oldest -> youngest
 bool operator<(const Article& a1, const Article& a2) {

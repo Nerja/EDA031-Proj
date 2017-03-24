@@ -12,6 +12,7 @@ public:
     std::string get_title() const;
     std::string get_author() const;
     std::string get_text() const;
+    time_t get_time() const;
     int get_id() const;
     friend bool operator<(const Article& a1, const Article& a2);
 private:
