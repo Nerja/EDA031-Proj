@@ -5,6 +5,7 @@
 #include "article.h"
 #include <string>
 class Database {
+public:
 	virtual std::vector<NewsGroup> list_newsgroups() const = 0;
 	virtual bool create_newsgroup(std::string name) = 0;
 	virtual bool delete_newsgroup(int id) = 0;
