@@ -18,7 +18,7 @@ bool MemoryDatabase::create_newsgroup(std::string name) {
 	NewsGroup n(name, hash_id);
 
 	auto it = newsgroups.find(hash_id);
-	if(it == newsgroups.end() )
+	if(it != newsgroups.end() )
 		return false;
 
 	newsgroups.insert(std::make_pair(hash_id, n));
