@@ -13,7 +13,7 @@ class MemoryDatabase : public Database {
 		bool delete_newsgroup(int id);
 		Article read_article(int group, int article);
 		bool create_article(int group, std::string title, std::string author, std::string text);
-		bool delete_article(int group, int article);
+		int delete_article(int group, int article);
 		std::vector<Article> list_articles(int group);
 	private:
 		std::map<int,NewsGroup> newsgroups;
