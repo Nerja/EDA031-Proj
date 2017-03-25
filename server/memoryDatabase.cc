@@ -8,7 +8,13 @@
 #include "article.h"
 
 std::vector<NewsGroup> MemoryDatabase::list_newsgroups() const {
-
+	std::vector<NewsGroup> vec_ret;
+	auto it = newsgroups.begin();
+	for( it; it != newsgroups.end(); ++it) {
+		NewsGroup t = it->second;
+		vec_ret.push_back(t);
+	}	
+	return vec_ret;
 }
 
 bool MemoryDatabase::create_newsgroup(std::string name) {
@@ -27,6 +33,12 @@ bool MemoryDatabase::create_newsgroup(std::string name) {
 
 
 bool MemoryDatabase::delete_newsgroup(int group_id) {
+	auto it = newsgroups.find(group_id);
+	if(it != newsgroups.end() ) {
+		newsgroups.erase(it);
+		return true;
+	}
+	return false;
 
 }
 
