@@ -17,7 +17,11 @@ class MemoryDatabase : public Database {
 		std::vector<Article> list_articles(int group);
 	private:
 		std::map<int,NewsGroup> newsgroups;
+		bool matchArticleId(Article a, int id) {
+			return a.get_id() == id;
+		}
 		int id = 0;
 };
+
 
 #endif

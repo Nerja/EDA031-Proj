@@ -2,6 +2,7 @@
 #include <functional>
 #include <vector>
 #include <utility>
+#include <algorithm>
 
 #include "memoryDatabase.h"
 #include "newsgroup.h"
@@ -43,6 +44,15 @@ bool MemoryDatabase::delete_newsgroup(int group_id) {
 }
 
 Article MemoryDatabase::read_article(int group_id, int article) {
+	auto it = newsgroups.find(group_id);
+	if(it != newsgroups.end() ) {
+		std::vector<Article> v = it->second.get_articles();
+		auto itv = find_if(v.begin(), v.end(), matchArticleId(*itv, article));
+		if(itv != v.end() )
+			return itv;
+
+	}
+	return nullptr;	
 
 }
 
