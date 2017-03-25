@@ -8,21 +8,23 @@ boolean MemoryDatabase::create_newsgroup(std::string name) {
 
 }
 
-boolean delete_newsgroup(int int) {
+boolean MemoryDatabase::delete_newsgroup(int group_id) {
 
 }
 
-Article read_article(int group, int article) {
+Article MemoryDatabase::read_article(int group_id, int article) {
 
 }
 
-void create_article(int group, std::string title, std::string author, std::string text) {
+// creates a article
+void MemoryDatabase::create_article(int group_id, std::string title, std::string author, std::string text) {
 
 }
-boolean delete_article(int group, int article) {
+
+boolean MemoryDatabase::delete_article(int group_id, int article) {
 
 }
 
-std::vector<Article> list_articles(int group) {
+std::vector<Article> MemoryDatabase::list_articles(int group_id) {
 
 }

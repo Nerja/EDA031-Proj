@@ -1,7 +1,7 @@
 #include "database.h"
 #include <string>
 #include <vector>
-#include <set>
+#include <map>
 
 class MemoryDatabase : public Database {
 	public:
@@ -13,5 +13,5 @@ class MemoryDatabase : public Database {
 		boolean delete_article(int group, int article);
 		std::vector<Article> list_articles(int group);
 	private:
-		std::set<NewsGroup> newsgroups;
+		std::map<int,NewsGroup> newsgroups;
 }
