@@ -12,7 +12,7 @@
 std::vector<NewsGroup> MemoryDatabase::list_newsgroups() const {
   std::vector<NewsGroup> vec_ret;
 	auto it = newsgroups.begin();
-	for( it; it != newsgroups.end(); ++it) {
+	for(; it != newsgroups.end(); ++it) {
 		NewsGroup t = it->second;
 		vec_ret.push_back(t);
 	}

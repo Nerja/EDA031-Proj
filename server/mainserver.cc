@@ -9,6 +9,8 @@
 #include "messagehandler.h"
 #include "protocol.h"
 #include "commandparser.h"
+#include "database.h"
+#include "memoryDatabase.h"
 
 using namespace std;
 
@@ -29,7 +31,8 @@ int main(int argc, char* argv[]){
     cerr << "Server initialization error." << endl;
     exit(1);
   }
-  CommandParser command_parser;
+  MemoryDatabase db;
+  CommandParser command_parser(db);
   while (true) {
     auto conn = server.waitForActivity();
     if (conn != nullptr) {
@@ -62,9 +65,11 @@ int main(int argc, char* argv[]){
             break;
         }
         auto end = readByte(conn);
-        if(end != Protocol::ANS_END) {
+        if(end != Protocol::COM_END) {
             cout << "Protocol problems, client disconnected!" << endl;
             server.deregisterConnection(conn);
+        } else {
+          cout << "Command done" << endl;
         }
       } catch (ConnectionClosedException&) {
         server.deregisterConnection(conn);
