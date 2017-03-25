@@ -1,6 +1,7 @@
 #include <string>
 #include <functional>
 #include <vector>
+#include <utility>
 
 #include "memoryDatabase.h"
 #include "newsgroup.h"
@@ -13,7 +14,13 @@ std::vector<NewsGroup> MemoryDatabase::list_newsgroups() const {
 bool MemoryDatabase::create_newsgroup(std::string name) {
 	hash<std::string> hash_id(name);
 	Newsgroup n(name, hash_id);
-		
+
+	auto it = newsgroups.find(hash_id);
+	if(it == newsgroups.end() )
+		return false;
+
+	newsgroups.insert(make_pair(hash_id, n));
+	return true;	
 }
 
 bool MemoryDatabase::create_newsgroup(std::string name) {
