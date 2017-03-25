@@ -4,11 +4,11 @@ std::vector<NewsGroup> MemoryDatabase::list_newsgroups() const {
 
 }
 
-boolean MemoryDatabase::create_newsgroup(std::string name) {
+bool MemoryDatabase::create_newsgroup(std::string name) {
 
 }
 
-boolean MemoryDatabase::delete_newsgroup(int group_id) {
+bool MemoryDatabase::delete_newsgroup(int group_id) {
 
 }
 
@@ -16,12 +16,12 @@ Article MemoryDatabase::read_article(int group_id, int article) {
 
 }
 
-// creates a article
-void MemoryDatabase::create_article(int group_id, std::string title, std::string author, std::string text) {
+// creates a article, generate a unique id for the article
+bool MemoryDatabase::create_article(int group_id, std::string title, std::string author, std::string text) {
 
 }
 
-boolean MemoryDatabase::delete_article(int group_id, int article) {
+bool MemoryDatabase::delete_article(int group_id, int article) {
 
 }
 
