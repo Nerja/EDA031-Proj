@@ -1,3 +1,6 @@
+#ifndef MEMORYDATABASE_H
+#define MEMORYDATABASE_H
+
 #include "database.h"
 #include <string>
 #include <vector>
@@ -14,4 +17,7 @@ class MemoryDatabase : public Database {
 		std::vector<Article> list_articles(int group);
 	private:
 		std::map<int,NewsGroup> newsgroups;
-}
+		int id = 0;
+};
+
+#endif
