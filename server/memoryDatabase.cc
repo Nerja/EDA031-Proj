@@ -46,16 +46,24 @@ bool MemoryDatabase::delete_newsgroup(int group_id) {
 
 }
 
-Article MemoryDatabase::read_article(int group_id, int article) {
+// Get an article. The group and article identification numbers are sent as parameters. The
+// reply contains the title, author, and text of the article.
+// return Article("group_id doesn't exist", "","",0) or,
+// return Article("article_id doesn't exist", "","",0) or,
+// return Article
+Article MemoryDatabase::read_article(int group_id, int article_id) {
 	auto it = newsgroups.find(group_id);
 	if(it != newsgroups.end() ) {
 		std::vector<Article> v = it->second.get_articles();
-		auto itv = find_if(v.begin(), v.end(), matchArticleId(*itv, article));
-		if(itv != v.end() )
-			return itv;
-
+    auto lam = [article_id](const Article& a) { return a.get_id() == article_id; };
+		auto itv = find_if(v.begin(), v.end(), lam);
+		if(itv != v.end()) {
+      return *itv;
+    } else {
+      return Article("article_id doesn't exist", "","",0);
+    }
 	}
-	return nullptr;	
+	return Article("group_id doesn't exist", "","",0);
 
 }
 

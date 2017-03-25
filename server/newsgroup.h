@@ -7,7 +7,7 @@
 
 class NewsGroup {
 public:
-    NewsGroup(std::string name, int id);
+    NewsGroup(std::string name, size_t id);
     std::string get_name() const;
     int get_id() const;
     std::vector<Article> get_articles() const;
