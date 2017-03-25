@@ -16,7 +16,7 @@ public:
     friend bool operator<(const NewsGroup& ng1, const NewsGroup& ng2);
 private:
     std::string name;
-    int group_id;
+    size_t group_id;
     time_t time_of_creation;
     std::vector<Article> articles;
 };
