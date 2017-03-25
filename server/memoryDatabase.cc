@@ -12,20 +12,19 @@ std::vector<NewsGroup> MemoryDatabase::list_newsgroups() const {
 }
 
 bool MemoryDatabase::create_newsgroup(std::string name) {
-	hash<std::string> hash_id(name);
-	Newsgroup n(name, hash_id);
+	std::hash<std::string> hash;
+	size_t hash_id = hash(name);
+	
+	NewsGroup n(name, hash_id);
 
 	auto it = newsgroups.find(hash_id);
 	if(it == newsgroups.end() )
 		return false;
 
-	newsgroups.insert(make_pair(hash_id, n));
+	newsgroups.insert(std::make_pair(hash_id, n));
 	return true;	
 }
 
-bool MemoryDatabase::create_newsgroup(std::string name) {
-
-}
 
 bool MemoryDatabase::delete_newsgroup(int group_id) {
 
