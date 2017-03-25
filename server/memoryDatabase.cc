@@ -6,6 +6,8 @@
 #include <functional>
 #include <utility>
 
+// List newsgroups. The reply contains the number of newsgroups followed by the identification
+// numbers and titles of the groups.
 std::vector<NewsGroup> MemoryDatabase::list_newsgroups() const {
   std::vector<NewsGroup> vec_ret;
 	auto it = newsgroups.begin();
@@ -17,6 +19,7 @@ std::vector<NewsGroup> MemoryDatabase::list_newsgroups() const {
 
 }
 
+// Create a newsgroup. The title of the group is sent as a parameter.
 bool MemoryDatabase::create_newsgroup(std::string name) {
   std::hash<std::string> hash;
 	size_t hash_id = hash(name);
@@ -31,6 +34,7 @@ bool MemoryDatabase::create_newsgroup(std::string name) {
 	return true;
 }
 
+// Delete a newsgroup. The identification number of the group is sent as a parameter.
 bool MemoryDatabase::delete_newsgroup(int group_id) {
   auto it = newsgroups.find(group_id);
 	if(it != newsgroups.end() ) {
