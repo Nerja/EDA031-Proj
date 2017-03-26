@@ -67,22 +67,56 @@ void CommandParser::list_articles(const shared_ptr<Connection>& conn) {
   writeByte(conn, Protocol::ANS_END);
 }
 void CommandParser::create_article(const shared_ptr<Connection>& conn) {
-  //int group_id = readNumber_p(conn);
-  //string title = readString_p(conn);
-  //string author = readString_p(conn);
-  //string text = readString_p(conn);
-  cout << "Create article" << endl;
+  int group_id = readNumber_p(conn);
+  writeByte(conn, Protocol::ANS_CREATE_ART);
+  try {
+    string title = readString_p(conn);
+    string author = readString_p(conn);
+    string text = readString_p(conn);
+
+    database.create_article(group_id, title, author, text);
+
+    writeByte(conn, Protocol::ANS_ACK);
+  } catch (invalid_group_id_exception& ex) {
+    writeByte(conn, Protocol::ANS_NAK);
+    writeByte(conn, Protocol::ERR_NG_DOES_NOT_EXIST);
+  }
   writeByte(conn, Protocol::ANS_END);
 }
+
 void CommandParser::delete_article(const shared_ptr<Connection>& conn) {
-  //int group_id = readNumber_p(conn);
-  //int article_id = readNumber_p(conn);
-  cout << "Delete article" << endl;
+  int group_id = readNumber_p(conn);
+  int article_id = readNumber_p(conn);
+  writeByte(conn, Protocol::ANS_DELETE_ART);
+  try {
+    database.delete_article(group_id, article_id);
+    writeByte(conn, Protocol::ANS_ACK);
+  } catch (invalid_group_id_exception& ex) {
+    writeByte(conn, Protocol::ANS_NAK);
+    writeByte(conn, Protocol::ERR_NG_DOES_NOT_EXIST);
+  } catch (invalid_article_id_exception& ex) {
+    writeByte(conn, Protocol::ANS_NAK);
+    writeByte(conn, Protocol::ERR_ART_DOES_NOT_EXIST);
+  }
   writeByte(conn, Protocol::ANS_END);
 }
+
 void CommandParser::get_article(const shared_ptr<Connection>& conn) {
-  //int group_id = readNumber_p(conn);
-  //int article_id = readNumber_p(conn);
-  cout << "Get article" << endl;
+  int group_id = readNumber_p(conn);
+  int article_id = readNumber_p(conn);
+  writeByte(conn, Protocol::ANS_GET_ART);
+  try{
+    Article a = database.read_article(group_id, article_id);
+    writeByte(conn, Protocol::ANS_ACK);
+    writeString_p(conn, a.get_title());
+    writeString_p(conn, a.get_author());
+    writeString_p(conn, a.get_text());
+  } catch (invalid_group_id_exception& ex) {
+    writeByte(conn, Protocol::ANS_NAK);
+    writeByte(conn, Protocol::ERR_NG_DOES_NOT_EXIST);
+  } catch (invalid_article_id_exception& ex) {
+    writeByte(conn, Protocol::ANS_NAK);
+    writeByte(conn, Protocol::ERR_ART_DOES_NOT_EXIST);
+  }
   writeByte(conn, Protocol::ANS_END);
 }
