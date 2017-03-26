@@ -1,11 +1,10 @@
-#ifndef MEMORYDATABASE_H
-#define MEMORYDATABASE_H
+#ifndef FILEDATABASE_H
+#define FILEDATABASE_H
 
 #include "database.h"
 #include "databaseExceptions.h"
 #include <string>
 #include <vector>
-#include <map>
 
 class FileDatabase : public Database {
 	public:
@@ -31,6 +30,3 @@ class FileDatabase : public Database {
 
 
 #endif
-
-
-
