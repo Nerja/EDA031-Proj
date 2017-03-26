@@ -3,8 +3,8 @@ PROGS = serv
 
 serv: 
 	rm -f -R *.o $(PROGS)
-	rm lib/libclientserver.a
-	rm server/mainserver
+	rm -f lib/libclientserver.a
+	rm -f server/mainserver
 	cd lib && $(MAKE)
 	cp lib/libclientserver.a server/
 	cd server && $(MAKE)
