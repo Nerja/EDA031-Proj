@@ -24,11 +24,11 @@ void CommandParser::list_newsgroup(const shared_ptr<Connection>& conn) {
 }
 void CommandParser::create_newsgroup(const shared_ptr<Connection>& conn) {
   string group_name = readString_p(conn);
-  bool created = database.create_newsgroup(group_name);
   writeByte(conn, Protocol::ANS_CREATE_NG);
-  if(created)
+  try {
+    database.create_newsgroup(group_name);
     writeByte(conn, Protocol::ANS_ACK);
-  else {
+  } catch (invalid_group_name_exception& ex) {
     writeByte(conn, Protocol::ANS_NAK);
     writeByte(conn, Protocol::ERR_NG_ALREADY_EXISTS);
   }
@@ -37,10 +37,11 @@ void CommandParser::create_newsgroup(const shared_ptr<Connection>& conn) {
 void CommandParser::delete_newsgroup(const shared_ptr<Connection>& conn) {
   int group_id = readNumber_p(conn);
   writeByte(conn, Protocol::ANS_DELETE_NG);
-  bool removed = database.delete_newsgroup(group_id);
-  if(removed)
+  try {
+    cout << "trying to del " << to_string(group_id) << endl;
+    database.delete_newsgroup(group_id);
     writeByte(conn, Protocol::ANS_ACK);
-  else {
+  } catch (invalid_group_id_exception& ex) {
     writeByte(conn, Protocol::ANS_NAK);
     writeByte(conn, Protocol::ERR_NG_DOES_NOT_EXIST);
   }
@@ -51,12 +52,17 @@ void CommandParser::delete_newsgroup(const shared_ptr<Connection>& conn) {
 void CommandParser::list_articles(const shared_ptr<Connection>& conn) {
   int group_id = readNumber_p(conn);
   writeByte(conn, Protocol::ANS_LIST_ART);
-  vector<Article> articles = database.list_articles(group_id);
-  writeByte(conn, Protocol::ANS_ACK);
-  writeNumber_p(conn, articles.size());
-  for(Article& article : articles) {
-    writeNumber_p(conn, article.get_id());
-    writeString_p(conn, article.get_title());
+  try {
+    vector<Article> articles = database.list_articles(group_id);
+    writeByte(conn, Protocol::ANS_ACK);
+    writeNumber_p(conn, articles.size());
+    for(Article& article : articles) {
+      writeNumber_p(conn, article.get_id());
+      writeString_p(conn, article.get_title());
+    }
+  } catch (invalid_group_id_exception& ex) {
+    writeByte(conn, Protocol::ANS_NAK);
+    writeByte(conn, Protocol::ERR_NG_DOES_NOT_EXIST);
   }
   writeByte(conn, Protocol::ANS_END);
 }
