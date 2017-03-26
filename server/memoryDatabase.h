@@ -27,7 +27,8 @@ class MemoryDatabase : public Database {
 		std::vector<Article> list_articles(int group) throw(invalid_group_id_exception);
 	private:
 		std::map<int,NewsGroup> newsgroups;
-		int id = 0;
+		int art_id = 0;
+		int grp_id = 0;
 };
 
 
