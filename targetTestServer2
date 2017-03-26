@@ -1,0 +1,102 @@
+*** THE FOLLOWING TESTS SHOULD PASS ***
+
+*** Start test number 1. List groups
+*** ... passed
+
+*** Start test number 2. Create group: Group 1
+*** ... passed
+
+*** Start test number 3. List groups
+*** ... passed
+
+*** Start test number 4. Create group: Group 2
+*** ... passed
+
+*** Start test number 5. Create group: This is a group with a long title, but the server must be able to handle that.
+*** ... passed
+
+*** Start test number 6. List groups
+*** ... passed
+
+*** Start test number 7. Delete group: Group 2
+*** ... passed
+
+*** Start test number 8. List groups
+*** ... passed
+
+*** Start test number 9. List articles, group: Group 1
+*** ... passed
+
+*** Start test number 10. List articles, group: This is a group with a long title, but the server must be able to handle that.
+*** ... passed
+
+*** Start test number 11. Create article: Article 1, in group: Group 1
+*** ... passed
+
+*** Start test number 12. Create article: Article 2, in group: Group 1
+*** ... passed
+
+The following test will take some time (create long article) ...
+*** Start test number 13. Create article: A long article, in group: Group 1
+*** ... passed
+
+*** Start test number 14. List articles, group: Group 1
+*** ... passed
+
+*** Start test number 15. Get article: Article 1, in group: Group 1
+*** ... passed
+
+*** Start test number 16. Get article: Article 2, in group: Group 1
+*** ... passed
+
+The following test will take some time (get long article) ...
+*** Start test number 17. Get article: A long article, in group: Group 1
+*** ... passed
+
+*** Start test number 18. Delete article: Article 1, in group: Group 1
+*** ... passed
+
+*** Start test number 19. Delete article: A long article, in group: Group 1
+*** ... passed
+
+*** Start test number 20. List articles, group: Group 1
+*** ... passed
+
+*** Start test number 21. Get article: Article 2, in group: Group 1
+*** ... passed
+
+*** THE FOLLOWING TESTS SHOULD GIVE ERRORS ***
+
+Create group with duplicate name ...
+*** Start test number 22. Create group: Group 1
+*** ERROR: Could not create group: Group 1
+
+Delete non-existing group ...
+*** Start test number 23. Delete group: Non-existing
+*** ERROR: Could not delete group: Non-existing
+
+List articles of non-existing group ...
+*** Start test number 24. List articles, group: Non-existing
+*** ERROR: Group does not exist: Non-existing
+
+Create article in non-existing group ...
+*** Start test number 25. Create article: Test-article, in group: Non-existing
+*** ERROR: Could not create article: Test-article
+
+Delete article in non-existing group ...
+*** Start test number 26. Delete article: Test-article, in group: Non-existing
+*** ERROR: Could not delete article: Test-article
+
+Delete non-existing article in existing group ...
+*** Start test number 27. Delete article: Test-article, in group: Group 1
+*** ERROR: Could not delete article: Test-article
+
+Get article in non-existing group ...
+*** Start test number 28. Get article: Test-article, in group: Non-existing
+*** ERROR: Could not get article:Test-article
+
+Get non-existing article in existing group ...
+*** Start test number 29. Get article: Test-article, in group: Group 1
+*** ERROR: Could not get article:Test-article
+
+*** PASSED ALL TESTS ***
