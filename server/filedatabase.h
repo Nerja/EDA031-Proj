@@ -12,7 +12,7 @@ class FileDatabase : public Database {
 
 		void create_newsgroup(std::string name) throw(invalid_group_name_exception);
 
-		void delete_newsgroup(int id) throw(invalid_group_id_exception);
+		void delete_newsgroup(size_t id) throw(invalid_group_id_exception);
 
 		Article read_article(int group, int article)
 				throw(invalid_group_id_exception, invalid_article_id_exception);
