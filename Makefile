@@ -12,7 +12,9 @@ serv:
 	java -jar automatic.jar 127.0.0.1 7778 > output
 	diff -w targetTestServer2 output
 	pkill -9 -f ./mainserver
-	
+	cd client && $(MAKE)	
+	rm -f server/mainserver
+	rm -f client/client
 
 all: $(PROGS)
 
