@@ -8,6 +8,11 @@ serv:
 	cd lib && $(MAKE)
 	cp lib/libclientserver.a server/
 	cd server && $(MAKE)
+	cd server && ./mainserver 7778 &
+	java -jar automatic.jar 127.0.0.1 7778 > output
+	diff -w targetTestServer2 output
+	pkill -9 -f ./mainserver
+	
 
 all: $(PROGS)
 

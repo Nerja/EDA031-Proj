@@ -1,13 +1,12 @@
-#ifndef MEMORYDATABASE_H
-#define MEMORYDATABASE_H
+#ifndef FILEDATABASE_H
+#define FILEDATABASE_H
 
 #include "database.h"
 #include "databaseExceptions.h"
 #include <string>
 #include <vector>
-#include <map>
 
-class MemoryDatabase : public Database {
+class FileDatabase : public Database {
 	public:
 		std::vector<NewsGroup> list_newsgroups() const;
 
@@ -26,9 +25,7 @@ class MemoryDatabase : public Database {
 
 		std::vector<Article> list_articles(int group) throw(invalid_group_id_exception);
 	private:
-		std::map<int,NewsGroup> newsgroups;
-		int art_id = 0;
-		int grp_id = 0;
+		int id = 0;
 };
 
 

@@ -8,6 +8,7 @@
 #include <utility>
 #include <algorithm>
 
+#include <iostream>
 // List newsgroups. The reply contains the number of newsgroups followed by the identification
 // numbers and titles of the groups.
 std::vector<NewsGroup> MemoryDatabase::list_newsgroups() const {
@@ -24,17 +25,15 @@ std::vector<NewsGroup> MemoryDatabase::list_newsgroups() const {
 
 // Create a newsgroup. The title of the group is sent as a parameter.
 void MemoryDatabase::create_newsgroup(std::string name) throw(invalid_group_name_exception){
+      int id = grp_id++;
+	    NewsGroup n(name, id);
 
-      std::hash<std::string> hash;
-	    size_t hash_id = hash(name);
-
-	    NewsGroup n(name, hash_id);
-
-	    auto it = newsgroups.find(hash_id);
-	    if(it != newsgroups.end() )
-		      throw invalid_group_name_exception();
-
-	    newsgroups.insert(std::make_pair(hash_id, n));
+	    for (auto a : newsgroups) {
+          if (a.second.get_name() == name) {
+                throw invalid_group_name_exception();
+          }
+      }
+	    newsgroups.insert(std::make_pair(id, n));
 }
 
 // Delete a newsgroup. The identification number of the group is sent as a parameter.
@@ -44,8 +43,9 @@ void MemoryDatabase::delete_newsgroup(int group_id) throw(invalid_group_id_excep
       auto it = newsgroups.find(group_id);
 	    if(it != newsgroups.end() ) {
 		        newsgroups.erase(it);
-	    }
-	    throw invalid_group_id_exception();
+	    } else {
+            throw invalid_group_id_exception();
+      }
 }
 
 // Get an article. The group and article identification numbers are sent as parameters. The
@@ -72,12 +72,13 @@ Article MemoryDatabase::read_article(int group_id, int article_id)
 // throws invalid_group_id_exception
 void MemoryDatabase::create_article(int group_id, std::string title, std::string author, std::string text)
     throw(invalid_group_id_exception) {
-
       auto itr = newsgroups.find(group_id);
+
       if (itr != newsgroups.end()) {
-            itr->second.add_articles(Article(title, author, text, id++));
+            itr->second.add_articles(Article(title, author, text, art_id++));
+      } else {
+            throw invalid_group_id_exception();
       }
-      throw invalid_group_id_exception();
 }
 // Delete an article. The group and article identification numbers are sent as parameters.
 // throws invalid_group_id_exception / invalid_article_id_exception
@@ -89,8 +90,9 @@ void MemoryDatabase::delete_article(int group_id, int article_id)
             if(!itr->second.delete_article(article_id)) {
                   throw invalid_article_id_exception();
             }
+      } else {
+            throw invalid_group_id_exception();
       }
-      throw invalid_group_id_exception();
 }
 
 // List articles in a newsgroup. The identification number of the group is sent as a parameter.

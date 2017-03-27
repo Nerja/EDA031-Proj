@@ -7,7 +7,7 @@
 
 class NewsGroup {
 public:
-    NewsGroup(std::string name, size_t id);
+    NewsGroup(std::string name, int id);
     std::string get_name() const;
     int get_id() const;
     std::vector<Article> get_articles() const;
@@ -16,7 +16,7 @@ public:
     friend bool operator<(const NewsGroup& ng1, const NewsGroup& ng2);
 private:
     std::string name;
-    size_t group_id;
+    int group_id;
     time_t time_of_creation;
     std::vector<Article> articles;
 };

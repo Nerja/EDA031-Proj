@@ -6,7 +6,7 @@
 #include <ctime>
 
 // constructor name + unique id
-NewsGroup::NewsGroup(std::string s, size_t i) : name(s), group_id(i), time_of_creation(time(0)) {}
+NewsGroup::NewsGroup(std::string s, int i) : name(s), group_id(i), time_of_creation(time(0)) {}
 // get name
 std::string NewsGroup::get_name() const { return name; }
 // get group id
