@@ -1,6 +1,7 @@
 #include "connection.h"
 #include "../server/messagehandler.cc"
 #include "protocol.h"
+#include "protocolexception.h"
 
 #include <iostream>
 #include <string>
@@ -32,28 +33,87 @@ void print_title(string msg) {
 
 void print_list_newsgroups(const shared_ptr<Connection>& conn){
   print_title("List all newsgroups");
-  writeByte(conn, Protocol::ANS_ACK);
-  /*
-  FETCH ALL NEWSGROUPS FROM SERVER HERE
-  */
+  writeByte(conn, Protocol::COM_LIST_NG);
+  writeByte(conn, Protocol::COM_END);
+
+  auto ans = readByte(conn);
+  if(ans != Protocol::ANS_LIST_NG)
+    throw wrong_anstype();
+
+  int numberGroups = readNumber_p(conn);
+  cout << "Group nbr:\t\t\tGroup name:" << endl;
+  for(int i = 0; i != numberGroups; ++i) {
+    int groupNbr = readNumber_p(conn);
+    string groupName = readString_p(conn);
+    cout << to_string(groupNbr) << "\t\t\t" << groupName << endl;
+  }
 }
 
 void print_create_newsgroup(const shared_ptr<Connection>& conn){
   print_title("Create a newsgroup");
-  /*
-  CREATE NEW NEWSGROUP HERE
-  */
+  cout << "Enter name of the newsgroup to create: ";
+  string groupName = "";
+  cin >> groupName;
+  writeByte(conn, Protocol::COM_CREATE_NG);
+  writeString_p(conn, groupName);
+  writeByte(conn, Protocol::COM_END);
+  if(readByte(conn) != Protocol::ANS_CREATE_NG)
+    throw wrong_anstype();
+
+  auto status = readByte(conn);
+  if(status != Protocol::ANS_ACK) {
+    cout << "Newsgroup already exists!" << endl;
+    readByte(conn); //read trailing byte
+  } else {
+    cout << "Newsgroup was created" << endl;
+  }
 }
 
 void print_delete_newsgroup(const shared_ptr<Connection>& conn){
   print_title("Delete a newsgroup");
-  /*
-  DELETE NEWSGROUP
-  */
+  cout << "Enter newsgroup id to delete: ";
+  int groupId = 0;
+  cin >> groupId;
+  writeByte(conn, Protocol::COM_DELETE_NG);
+  writeNumber_p(conn, groupId);
+  writeByte(conn, Protocol::COM_END);
+
+  if(readByte(conn) != Protocol::ANS_DELETE_NG)
+    throw wrong_anstype();
+
+  auto status = readByte(conn);
+  if(status != Protocol::ANS_ACK) {
+    cout << "No such newsgroup, check id!" << endl;
+    readByte(conn); //read trailing byte
+  } else {
+    cout << "Newsgroup was deleted" << endl;
+  }
 }
 
 void print_list_articles(const shared_ptr<Connection>& conn){
   print_title("List all articles in newsgroup");
+  cout << "Enter newsgroup id to view: ";
+  int groupId = 0;
+  cin >> groupId;
+  writeByte(conn, Protocol::COM_LIST_ART);
+  writeNumber_p(conn, groupId);
+  writeByte(conn, Protocol::COM_END);
+
+  if(readByte(conn) != Protocol::ANS_LIST_ART)
+    throw wrong_anstype();
+
+  if(readByte(conn) != Protocol::ANS_ACK) {
+    cout << "No such newsgroup, check id!" << endl;
+    readByte(conn); //read trailing byte
+  } else {
+    cout << "Article nbr:\t\t\tArticle name:" << endl;
+    int numberArticles = readNumber_p(conn);
+    for(int i = 0; i != numberArticles; ++i) {
+      int artId = readNumber_p(conn);
+      string title = readString_p(conn);
+      cout << to_string(artId) << "\t\t\t" << title;
+    }
+  }
 }
 
 void print_create_article(const shared_ptr<Connection>& conn){
@@ -112,6 +172,9 @@ void print_menu(const shared_ptr<Connection>& conn) {
     clear("ERROR IDIOT");
 		break;
 	}
+  auto endByte = readByte(conn);
+  if(endByte != Protocol::ANS_END)
+    throw missing_ans_end();
   cout << "Enter a letter to continue:";
   char c;
   cin >> c;
