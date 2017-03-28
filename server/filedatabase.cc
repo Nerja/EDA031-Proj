@@ -158,13 +158,15 @@ Article FileDatabase::read_article(int group_id, int article_id)
 								std::string text;
 								getline(in, title);
 								getline(in, author);
-								std::string word;
-								while(in >> word) {
-										text += word + " ";
+								std::string line;
+								while(getline(in, line)) {
+									text += line + "\n";
+
 								}
-								// remove last space
+								// remove last new line
 								text = text.substr(0, text.size()-1);
 								// create an article
+								std::cout << text << std::endl;
 								return Article(title, author, text, atoi(article_path.c_str()));
 							}
 					}
@@ -193,7 +195,7 @@ void FileDatabase::create_article(int group_id, std::string title, std::string a
 		// create a file in correct folder
 		std::ofstream article(PATH + find_group_path(std::to_string(group_id)) + "/" + article_path);
 		// insert author + newline + text
-		article << title << "\n" << author << "\n" << text;
+		article << title << "\n" << author << "\n" << text << "\n";
 
 		// increment article id and replace it in file
 		++article_id;
@@ -244,15 +246,14 @@ std::vector<Article> FileDatabase::list_articles(int group_id) throw(invalid_gro
 							std::string text;
 							getline(in, title);
 							getline(in, author);
-							std::string word;
-							while(in >> word) {
-									text += word + " ";
+							std::string line;
+							while(getline(in, line)) {
+									text += line + "\n";
+
 							}
-							// remove last space
+							// remove last newline
 							text = text.substr(0, text.size()-1);
 							// creates an Article and push it to the vector
-							std::cout << "title: " << title << std::endl;
-							std::cout << "author: " << author << std::endl;
 							articles.push_back(Article(title, author, text, atoi(article_path.c_str())));
 					}
 			}
