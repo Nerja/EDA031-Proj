@@ -23,7 +23,7 @@ LDLIBS = -lclientserver
 # Targets
 PROGS = mainserver
 
-mainserver: mainserver.o messagehandler.o commandparser.o memoryDatabase.o article.o newsgroup.o
+mainserver: mainserver.o messagehandler.o commandparser.o filedatabase.o article.o newsgroup.o
 
 all: $(PROGS)
 
