@@ -151,8 +151,8 @@ Article FileDatabase::read_article(int group_id, int article_id)
 							if (article_path == std::to_string(article_id)) {
 								// read from file + extract info
 								std::ifstream in(path + "/" + article_path);
-								std::string author;
 								std::string title;
+								std::string author;
 								std::string text;
 								getline(in, title);
 								getline(in, author);
@@ -238,8 +238,8 @@ std::vector<Article> FileDatabase::list_articles(int group_id) throw(invalid_gro
 							std::string author;
 							std::string title;
 							std::string text;
-							getline(in, author);
 							getline(in, title);
+							getline(in, author);
 							std::string word;
 							while(in >> word) {
 									text += word + " ";
