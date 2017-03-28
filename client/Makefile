@@ -14,8 +14,8 @@ CXXFLAGS =  -O2 -Wall -Wextra -pedantic-errors -Wold-style-cast
 CXXFLAGS += -std=c++11
 CXXFLAGS += -g
 CXXFLAGS += $(DEPFLAGS)
-#LDFLAGS =   -g -L .
-#LDLIBS = -lclientserver
+LDFLAGS =   -g -L .
+LDLIBS = -lclientserver
 #CPPFLAGS += -stdlib=libc++
 #CXXFLAGS += -stdlib=libc++
 #LDFLAGS +=  -stdlib=libc++

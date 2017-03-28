@@ -1,5 +1,10 @@
+#include "connection.h"
+#include "../server/messagehandler.cc"
+#include "protocol.h"
+
 #include <iostream>
 #include <string>
+#include <memory>
 
 using namespace std;
 
@@ -25,59 +30,46 @@ void print_title(string msg) {
   cout << endl;
 }
 
-void print_list_newsgroups(){
+void print_list_newsgroups(const shared_ptr<Connection>& conn){
   print_title("List all newsgroups");
+  writeByte(conn, Protocol::ANS_ACK);
   /*
   FETCH ALL NEWSGROUPS FROM SERVER HERE
   */
-  char c;
-  cin >> c;
 }
 
-void print_create_newsgroup(){
+void print_create_newsgroup(const shared_ptr<Connection>& conn){
   print_title("Create a newsgroup");
   /*
   CREATE NEW NEWSGROUP HERE
   */
-  char c;
-  cin >> c;
 }
 
-void print_delete_newsgroup(){
+void print_delete_newsgroup(const shared_ptr<Connection>& conn){
   print_title("Delete a newsgroup");
   /*
   DELETE NEWSGROUP
   */
-  char c;
-  cin >> c;
 }
 
-void print_list_articles(){
+void print_list_articles(const shared_ptr<Connection>& conn){
   print_title("List all articles in newsgroup");
-  char c;
-  cin >> c;
 }
 
-void print_create_article(){
+void print_create_article(const shared_ptr<Connection>& conn){
   print_title("Create new article");
-  char c;
-  cin >> c;
 }
 
-void print_delete_article(){
+void print_delete_article(const shared_ptr<Connection>& conn){
   print_title("Delete article");
-  char c;
-  cin >> c;
 }
 
-void print_get_article(){
+void print_get_article(const shared_ptr<Connection>& conn){
   print_title("List specific article");
-  char c;
-  cin >> c;
 }
 
 
-void print_menu() {
+void print_menu(const shared_ptr<Connection>& conn) {
 
   int choice = 0;
   print_title("Main Menu");
@@ -93,25 +85,25 @@ void print_menu() {
 
 	switch(choice) {
 	case 1:
-    print_list_newsgroups();
+    print_list_newsgroups(conn);
 		break;
 	case 2:
-    print_create_newsgroup();
+    print_create_newsgroup(conn);
 		break;
 	case 3:
-    print_delete_newsgroup();
+    print_delete_newsgroup(conn);
 		break;
 	case 4:
-    print_list_articles();
+    print_list_articles(conn);
 		break;
 	case 5:
-    print_create_article();
+    print_create_article(conn);
 		break;
 	case 6:
-    print_delete_article();
+    print_delete_article(conn);
 		break;
 	case 7:
-    print_get_article();
+    print_get_article(conn);
 		break;
   case 8:
     clear();
@@ -120,12 +112,24 @@ void print_menu() {
     clear("ERROR IDIOT");
 		break;
 	}
+  cout << "Enter a letter to continue:";
+  char c;
+  cin >> c;
 
-  print_menu();
+  print_menu(conn);
 
 }
 
 
-int main() {
-  print_menu();
+int main(int argc, char* argv[]) {
+  if(argc != 3) {
+    cerr << "Please enter host IP-address and port" << endl;
+    exit(1);
+  }
+  shared_ptr<Connection> conn(new Connection(argv[1], stoi(argv[2])));
+  if(!conn->isConnected()) {
+    cerr << "Could not connect, check IP-address and port" << endl;
+    exit(1);
+  }
+  print_menu(conn);
 }
