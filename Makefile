@@ -16,10 +16,16 @@ serv:
 	java -jar automatic.jar 127.0.0.1 7788 > output
 	diff -w targetTestServer2 output
 	pkill -9 -f ./mainserver
-	cd client && $(MAKE)	
+	cd client && $(MAKE)
+	cd server && ./mainserver 8888 &
+	cd client && ./client 127.0.0.1 8888 > output < testClientInput 
+	diff -w client/corrCli13Output client/output
+	pkill -9 -f ./mainserver
 	rm -f server/mainserver
 	rm -f client/client
 	rm -f output
+	rm -f client/output
+
 all: $(PROGS)
 
 
