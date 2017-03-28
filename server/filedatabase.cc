@@ -17,6 +17,8 @@
 #include "newsgroup.h"
 #include "filedatabase.h"
 
+#include <iostream>
+
 
 const std::string PATH = "./newsgroups/";
 const std::string GROUP_ID = ".groupID";
@@ -151,8 +153,8 @@ Article FileDatabase::read_article(int group_id, int article_id)
 							if (article_path == std::to_string(article_id)) {
 								// read from file + extract info
 								std::ifstream in(path + "/" + article_path);
-								std::string title;
 								std::string author;
+								std::string title;
 								std::string text;
 								getline(in, title);
 								getline(in, author);
@@ -160,6 +162,8 @@ Article FileDatabase::read_article(int group_id, int article_id)
 								while(in >> word) {
 										text += word + " ";
 								}
+								// remove last space
+								text = text.substr(0, text.size()-1);
 								// create an article
 								return Article(title, author, text, atoi(article_path.c_str()));
 							}
@@ -244,7 +248,11 @@ std::vector<Article> FileDatabase::list_articles(int group_id) throw(invalid_gro
 							while(in >> word) {
 									text += word + " ";
 							}
+							// remove last space
+							text = text.substr(0, text.size()-1);
 							// creates an Article and push it to the vector
+							std::cout << "title: " << title << std::endl;
+							std::cout << "author: " << author << std::endl;
 							articles.push_back(Article(title, author, text, atoi(article_path.c_str())));
 					}
 			}
