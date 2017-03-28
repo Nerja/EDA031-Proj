@@ -11,23 +11,25 @@ serv:
 	cp lib/libclientserver.a server/
 	cp lib/libclientserver.a client/
 	cd server && $(MAKE)
-	cd server && ./mainserver 7788 &
+	cd server && ./mainserver 7888 &
 	sleep 2
 	rm -f output
-	java -jar automatic.jar 127.0.0.1 7788 > output
+	java -jar automatic.jar 127.0.0.1 7888 > output
 	diff -w targetTestServer2 output
 	pkill -9 -f ./mainserver
+	sleep 1
+	rm -f -R server/newsgroups
+	cp -R server/newsgroups_def server/newsgroups
 	cd client && $(MAKE)
-	cd server && ./mainserver 7789 &
+	cd server && ./mainserver 7889 &
 	sleep 2
-	cd client && ./client 127.0.0.1 7789 > output < testClientInput 
+	cd client && ./client 127.0.0.1 7889 > output < testClientInput 
 	diff -w client/corrCli13Output client/output
 	pkill -9 -f ./mainserver
 	rm -f server/mainserver
 	rm -f client/client
 	rm -f output
-	rm -f client/output
-
+	
 all: $(PROGS)
 
 
