@@ -17,7 +17,6 @@ public:
 private:
     std::string name;
     int group_id;
-    time_t time_of_creation;
     std::vector<Article> articles;
 };
 

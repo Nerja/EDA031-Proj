@@ -20,7 +20,6 @@ private:
     std::string author;
     std::string text;
     int article_id;
-    time_t time_of_creation;
 };
 
 #endif

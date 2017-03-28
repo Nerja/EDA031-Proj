@@ -6,7 +6,7 @@
 #include <ctime>
 
 // constructor name + unique id
-NewsGroup::NewsGroup(std::string s, int i) : name(s), group_id(i), time_of_creation(time(0)) {}
+NewsGroup::NewsGroup(std::string s, int i) : name(s), group_id(i) {}
 // get name
 std::string NewsGroup::get_name() const { return name; }
 // get group id
@@ -35,5 +35,5 @@ bool NewsGroup::delete_article(int article_id) {
 
 // for sorting news groups oldest --> youngest
 bool operator<(const NewsGroup& ng1, const NewsGroup& ng2) {
-    return ng1.time_of_creation < ng2.time_of_creation;
+    return ng1.group_id < ng2.group_id;
 }

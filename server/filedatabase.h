@@ -12,7 +12,7 @@ class FileDatabase : public Database {
 
 		void create_newsgroup(std::string name) throw(invalid_group_name_exception);
 
-		void delete_newsgroup(size_t id) throw(invalid_group_id_exception);
+		void delete_newsgroup(int id) throw(invalid_group_id_exception);
 
 		Article read_article(int group, int article)
 				throw(invalid_group_id_exception, invalid_article_id_exception);
@@ -25,7 +25,9 @@ class FileDatabase : public Database {
 
 		std::vector<Article> list_articles(int group) throw(invalid_group_id_exception);
 	private:
-		int id = 0;
+		bool group_exists(std::string name) const;
+		bool group_id_exists(std::string id) const;
+		std::string find_group_path(std::string id) throw(invalid_group_id_exception);
 };
 
 
