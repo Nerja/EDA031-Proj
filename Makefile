@@ -9,14 +9,15 @@ serv:
 	cp lib/libclientserver.a server/
 	cp lib/libclientserver.a client/
 	cd server && $(MAKE)
-	cd server && ./mainserver 7778 &
-	java -jar automatic.jar 127.0.0.1 7778 > output
+	cd server && ./mainserver 7788 &
+	rm -f output
+	java -jar automatic.jar 127.0.0.1 7788 > output
 	diff -w targetTestServer2 output
 	pkill -9 -f ./mainserver
 	cd client && $(MAKE)	
 	rm -f server/mainserver
 	rm -f client/client
-
+	rm -f output
 all: $(PROGS)
 
 

@@ -10,7 +10,7 @@
 #include "protocol.h"
 #include "commandparser.h"
 #include "database.h"
-#include "filedatabase.h"
+#include "memoryDatabase.h"
 
 using namespace std;
 
@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
     cerr << "Server initialization error." << endl;
     exit(1);
   }
-  FileDatabase db;
+  MemoryDatabase db;
   CommandParser command_parser(db);
   while (true) {
     auto conn = server.waitForActivity();
