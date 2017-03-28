@@ -12,13 +12,15 @@ serv:
 	cp lib/libclientserver.a client/
 	cd server && $(MAKE)
 	cd server && ./mainserver 7788 &
+	sleep 2
 	rm -f output
 	java -jar automatic.jar 127.0.0.1 7788 > output
 	diff -w targetTestServer2 output
 	pkill -9 -f ./mainserver
 	cd client && $(MAKE)
-	cd server && ./mainserver 8888 &
-	cd client && ./client 127.0.0.1 8888 > output < testClientInput 
+	cd server && ./mainserver 7789 &
+	sleep 2
+	cd client && ./client 127.0.0.1 7789 > output < testClientInput 
 	diff -w client/corrCli13Output client/output
 	pkill -9 -f ./mainserver
 	rm -f server/mainserver
