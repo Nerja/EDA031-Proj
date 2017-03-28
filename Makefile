@@ -2,6 +2,8 @@
 PROGS = serv
 
 serv: 
+	rm -f -R server/newsgroups
+	cp -R server/newsgroups_def server/newsgroups
 	rm -f -R *.o $(PROGS)
 	rm -f lib/libclientserver.a
 	rm -f server/mainserver
