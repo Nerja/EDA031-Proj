@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <sstream>
 
 using namespace std;
 
@@ -118,6 +119,65 @@ void print_list_articles(const shared_ptr<Connection>& conn){
 
 void print_create_article(const shared_ptr<Connection>& conn){
   print_title("Create new article");
+
+  /*string input;
+
+  cout << "\nEnter newsgroup id to create article in: ";
+  int groupId = 0;
+  getline(cin, input);
+
+  stringstream myStream(input);
+  if (myStream >> groupId) {
+    //all good
+  }
+
+  cin.ignore();
+  cin.sync();
+
+  cout << "Enter title: ";
+  string title;
+  getline(cin, title);
+  cin.ignore();
+  cin.sync();
+  cout << "Enter author: ";
+  string author;
+  getline(cin, author);
+
+  cout << "Enter text, end with ^D:" << endl;
+  string line;
+  string text;
+  while (getline(cin, line)) {
+    if (line == "^D") {
+      break;
+    }
+    text += (line + '\n');
+  }
+
+
+    cin.ignore();
+    cin.sync();
+
+  writeByte(conn, Protocol::COM_CREATE_ART);
+  writeNumber_p(conn, groupId);
+  writeString_p(conn, title);
+  writeString_p(conn, author);
+  writeString_p(conn, text);
+  writeByte(conn, Protocol::COM_END);
+
+  if(readByte(conn) != Protocol::ANS_CREATE_ART)
+    throw wrong_anstype();
+
+  if(readByte(conn) != Protocol::ANS_ACK) {
+    cout << "No such newsgroup, check id!" << endl;
+    readByte(conn); //read trailing byte
+  }
+  else {
+    cout << "Article was successfully created!" << endl;
+  }
+
+  cin.ignore();
+  cin.sync();
+  */
 }
 
 void print_delete_article(const shared_ptr<Connection>& conn){
@@ -130,6 +190,7 @@ void print_get_article(const shared_ptr<Connection>& conn){
 
 
 void print_menu(const shared_ptr<Connection>& conn) {
+
 
   int choice = 0;
   print_title("Main Menu");
