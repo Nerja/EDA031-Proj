@@ -137,28 +137,14 @@ void print_list_articles(const shared_ptr<Connection>& conn){
 void print_create_article(const shared_ptr<Connection>& conn){
   print_title("Create new article");
 
-  /*string input;
-
   cout << "\nEnter newsgroup id to create article in: ";
-  int groupId = 0;
-  getline(cin, input);
-
-  stringstream myStream(input);
-  if (myStream >> groupId) {
-    //all good
-  }
-
-  cin.ignore();
-  cin.sync();
+  int groupId = read_number();
 
   cout << "Enter title: ";
-  string title;
-  getline(cin, title);
-  cin.ignore();
-  cin.sync();
+  string title = read_string();
+
   cout << "Enter author: ";
-  string author;
-  getline(cin, author);
+  string author = read_string();
 
   cout << "Enter text, end with ^D:" << endl;
   string line;
@@ -169,10 +155,6 @@ void print_create_article(const shared_ptr<Connection>& conn){
     }
     text += (line + '\n');
   }
-
-
-    cin.ignore();
-    cin.sync();
 
   writeByte(conn, Protocol::COM_CREATE_ART);
   writeNumber_p(conn, groupId);
@@ -191,10 +173,6 @@ void print_create_article(const shared_ptr<Connection>& conn){
   else {
     cout << "Article was successfully created!" << endl;
   }
-
-  cin.ignore();
-  cin.sync();
-  */
 }
 
 void print_delete_article(const shared_ptr<Connection>& conn){
