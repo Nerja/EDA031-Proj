@@ -29,6 +29,8 @@ serv:
 	rm -f server/mainserver
 	rm -f client/client
 	rm -f output
+	rm -f -R server/newsgroups
+	cp -R server/newsgroups_def server/newsgroups
 	
 all: $(PROGS)
 

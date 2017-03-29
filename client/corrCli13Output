@@ -107,7 +107,7 @@
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 
@@ -209,7 +209,7 @@
 
 ************ List all newsgroups ************
 Group nbr:			Group name:
-Enter a letter to continue:
+Enter a letter and press enter to continue:
 
 
 
@@ -318,7 +318,7 @@ Enter a letter to continue:
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 
@@ -420,7 +420,7 @@ Enter a letter to continue:
 
 ************ Create a newsgroup *************
 Enter name of the newsgroup to create: Newsgroup was created
-Enter a letter to continue:
+Enter a letter and press enter to continue:
 
 
 
@@ -529,7 +529,7 @@ Enter a letter to continue:
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 
@@ -632,7 +632,7 @@ Enter a letter to continue:
 ************ List all newsgroups ************
 Group nbr:			Group name:
 0			Erik
-Enter a letter to continue:
+Enter a letter and press enter to continue:
 
 
 
@@ -741,7 +741,7 @@ Enter a letter to continue:
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 
@@ -843,7 +843,7 @@ Enter a letter to continue:
 
 ************ Create a newsgroup *************
 Enter name of the newsgroup to create: Newsgroup was created
-Enter a letter to continue:
+Enter a letter and press enter to continue:
 
 
 
@@ -952,7 +952,7 @@ Enter a letter to continue:
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 
@@ -1056,7 +1056,7 @@ Enter a letter to continue:
 Group nbr:			Group name:
 0			Erik
 1			Perik
-Enter a letter to continue:
+Enter a letter and press enter to continue:
 
 
 
@@ -1165,7 +1165,7 @@ Enter a letter to continue:
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 
@@ -1267,7 +1267,7 @@ Enter a letter to continue:
 
 ************ Create a newsgroup *************
 Enter name of the newsgroup to create: Newsgroup was created
-Enter a letter to continue:
+Enter a letter and press enter to continue:
 
 
 
@@ -1376,7 +1376,7 @@ Enter a letter to continue:
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 
@@ -1481,7 +1481,7 @@ Group nbr:			Group name:
 0			Erik
 1			Perik
 2			Lerik
-Enter a letter to continue:
+Enter a letter and press enter to continue:
 
 
 
@@ -1590,7 +1590,7 @@ Enter a letter to continue:
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 
@@ -1692,7 +1692,7 @@ Enter a letter to continue:
 
 ************ Delete a newsgroup *************
 Enter newsgroup id to delete: Newsgroup was deleted
-Enter a letter to continue:
+Enter a letter and press enter to continue:
 
 
 
@@ -1801,7 +1801,7 @@ Enter a letter to continue:
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 
@@ -1905,7 +1905,7 @@ Enter a letter to continue:
 Group nbr:			Group name:
 0			Erik
 2			Lerik
-Enter a letter to continue:
+Enter a letter and press enter to continue:
 
 
 
@@ -2014,7 +2014,7 @@ Enter a letter to continue:
 [6]: Delete article
 [7]: List specific article
 [8]: Exit
-
+Please enter option: 
 
 
 

@@ -7,8 +7,28 @@
 #include <string>
 #include <memory>
 #include <sstream>
+#include <exception>
 
 using namespace std;
+
+int read_number() {
+  int number = 0;
+  string input;
+  getline(cin, input);
+
+  stringstream myStream(input);
+  if (myStream >> number) {
+    return number;
+  }
+  throw invalid_argument("Expected int");
+}
+
+string read_string() {
+  int number = 0;
+  string input;
+  getline(cin, input);
+  return input;
+}
 
 void clear(){
   cout << string(100, '\n' );
@@ -53,8 +73,7 @@ void print_list_newsgroups(const shared_ptr<Connection>& conn){
 void print_create_newsgroup(const shared_ptr<Connection>& conn){
   print_title("Create a newsgroup");
   cout << "Enter name of the newsgroup to create: ";
-  string groupName = "";
-  cin >> groupName;
+  string groupName = read_string();
   writeByte(conn, Protocol::COM_CREATE_NG);
   writeString_p(conn, groupName);
   writeByte(conn, Protocol::COM_END);
@@ -73,8 +92,7 @@ void print_create_newsgroup(const shared_ptr<Connection>& conn){
 void print_delete_newsgroup(const shared_ptr<Connection>& conn){
   print_title("Delete a newsgroup");
   cout << "Enter newsgroup id to delete: ";
-  int groupId = 0;
-  cin >> groupId;
+  int groupId = read_number();
   writeByte(conn, Protocol::COM_DELETE_NG);
   writeNumber_p(conn, groupId);
   writeByte(conn, Protocol::COM_END);
@@ -94,8 +112,7 @@ void print_delete_newsgroup(const shared_ptr<Connection>& conn){
 void print_list_articles(const shared_ptr<Connection>& conn){
   print_title("List all articles in newsgroup");
   cout << "Enter newsgroup id to view: ";
-  int groupId = 0;
-  cin >> groupId;
+  int groupId = read_number();
   writeByte(conn, Protocol::COM_LIST_ART);
   writeNumber_p(conn, groupId);
   writeByte(conn, Protocol::COM_END);
@@ -115,18 +132,6 @@ void print_list_articles(const shared_ptr<Connection>& conn){
       cout << to_string(artId) << "\t\t\t" << title;
     }
   }
-}
-
-int read_number() {
-  int number = 0;
-  string input;
-  getline(cin, input);
-
-  stringstream myStream(input);
-  if (myStream >> number) {
-    return number;
-  }
-  //throw new exception;
 }
 
 void print_create_article(const shared_ptr<Connection>& conn){
@@ -204,7 +209,6 @@ void print_get_article(const shared_ptr<Connection>& conn){
 void print_menu(const shared_ptr<Connection>& conn) {
 
 
-  int choice = 0;
   print_title("Main Menu");
 	cout << "[1]: List all newsgroups" << endl;
 	cout << "[2]: Create a newsgroup" << endl;
@@ -214,7 +218,8 @@ void print_menu(const shared_ptr<Connection>& conn) {
 	cout << "[6]: Delete article" << endl;
 	cout << "[7]: List specific article" << endl;
 	cout << "[8]: Exit" << endl;
-	cin >> choice;
+  cout << "Please enter option: ";
+	int choice = read_number();
 
 	switch(choice) {
 	case 1:
@@ -248,9 +253,8 @@ void print_menu(const shared_ptr<Connection>& conn) {
   auto endByte = readByte(conn);
   if(endByte != Protocol::ANS_END)
     throw missing_ans_end();
-  cout << "Enter a letter to continue:";
-  char c;
-  cin >> c;
+  cout << "Enter a letter and press enter to continue:";
+  read_string();
 
   print_menu(conn);
 
