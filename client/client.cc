@@ -117,6 +117,18 @@ void print_list_articles(const shared_ptr<Connection>& conn){
   }
 }
 
+int read_number() {
+  int number = 0;
+  string input;
+  getline(cin, input);
+
+  stringstream myStream(input);
+  if (myStream >> number) {
+    return number;
+  }
+  //throw new exception;
+}
+
 void print_create_article(const shared_ptr<Connection>& conn){
   print_title("Create new article");
 
