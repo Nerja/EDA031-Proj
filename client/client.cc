@@ -8,6 +8,7 @@
 #include <memory>
 #include <sstream>
 #include <exception>
+#include <algorithm>
 
 using namespace std;
 
@@ -15,6 +16,11 @@ int read_number() {
   int number = 0;
   string input;
   getline(cin, input);
+
+  if (cin.fail()) {
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  }
 
   stringstream myStream(input);
   if (myStream >> number) {
@@ -24,9 +30,12 @@ int read_number() {
 }
 
 string read_string() {
-  int number = 0;
   string input;
   getline(cin, input);
+  if (cin.fail()) {
+      cin.clear();
+      cin.ignore(numeric_limits<streamsize>::max(), '\n');
+  }
   return input;
 }
 
@@ -129,7 +138,7 @@ void print_list_articles(const shared_ptr<Connection>& conn){
     for(int i = 0; i != numberArticles; ++i) {
       int artId = readNumber_p(conn);
       string title = readString_p(conn);
-      cout << to_string(artId) << "\t\t\t" << title;
+      cout << to_string(artId) << "\t\t\t" << title << endl;
     }
   }
 }
@@ -177,10 +186,70 @@ void print_create_article(const shared_ptr<Connection>& conn){
 
 void print_delete_article(const shared_ptr<Connection>& conn){
   print_title("Delete article");
+
+  cout << "Enter newsgroup id containing article: ";
+  int groupId = read_number();
+  cout << "Enter article id to delete: ";
+  int articleId = read_number();
+
+
+  writeByte(conn, Protocol::COM_DELETE_ART);
+  writeNumber_p(conn, groupId);
+  writeNumber_p(conn, articleId);
+  writeByte(conn, Protocol::COM_END);
+
+  if(readByte(conn) != Protocol::ANS_DELETE_ART)
+    throw wrong_anstype();
+
+  auto status = readByte(conn);
+  if(status != Protocol::ANS_ACK) {
+    auto error = readByte(conn);
+    if(error == Protocol::ERR_NG_DOES_NOT_EXIST) {
+      cout << "No such newsgroup, check id!" << endl;
+    }
+    else {
+      cout << "No such article, check id!" << endl;
+    }
+  } else {
+    cout << "Article was deleted" << endl;
+  }
 }
 
 void print_get_article(const shared_ptr<Connection>& conn){
   print_title("List specific article");
+
+  cout << "Enter newsgroup id containing article: ";
+  int groupId = read_number();
+  cout << "Enter article id to list: ";
+  int articleId = read_number();
+
+  writeByte(conn, Protocol::COM_GET_ART);
+  writeNumber_p(conn, groupId);
+  writeNumber_p(conn, articleId);
+  writeByte(conn, Protocol::COM_END);
+
+  if(readByte(conn) != Protocol::ANS_GET_ART)
+    throw wrong_anstype();
+
+  auto status = readByte(conn);
+  if (status != Protocol::ANS_ACK) {
+    auto error = readByte(conn);
+    if(error == Protocol::ERR_NG_DOES_NOT_EXIST) {
+      cout << "No such newsgroup, check id!" << endl;
+    }
+    else {
+      cout << "No such article, check id!" << endl;
+    }
+  }
+  else {
+    string title = readString_p(conn);
+    string author = readString_p(conn);
+    string text = readString_p(conn);
+
+    cout << "Title: " << title << endl;
+    cout << "Author: " << author << endl;
+    cout << "Text:\n" << text << endl;
+  }
 }
 
 
