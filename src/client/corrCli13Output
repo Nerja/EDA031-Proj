@@ -631,7 +631,7 @@ Please enter option:
 
 ************ List all newsgroups ************
 Group nbr:			Group name:
-0			Erik
+1			Erik
 Enter a letter and press enter to continue:
 
 
@@ -1054,8 +1054,8 @@ Please enter option:
 
 ************ List all newsgroups ************
 Group nbr:			Group name:
-0			Erik
-1			Perik
+1			Erik
+2			Perik
 Enter a letter and press enter to continue:
 
 
@@ -1478,9 +1478,9 @@ Please enter option:
 
 ************ List all newsgroups ************
 Group nbr:			Group name:
-0			Erik
-1			Perik
-2			Lerik
+1			Erik
+2			Perik
+3			Lerik
 Enter a letter and press enter to continue:
 
 
@@ -1903,8 +1903,8 @@ Please enter option:
 
 ************ List all newsgroups ************
 Group nbr:			Group name:
-0			Erik
-2			Lerik
+2			Perik
+3			Lerik
 Enter a letter and press enter to continue:
 
 
