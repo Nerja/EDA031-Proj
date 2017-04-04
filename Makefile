@@ -9,9 +9,12 @@ build:
 	cd src/client && $(MAKE) all
 
 install:
+	mkdir -p bin
 	cp src/server/mainserver bin/
 	cp src/server/memorymainserver bin/
 	cp src/client/client bin/
+	rm -f -R bin/newsgroups
+	cp -R src/server/newsgroups_def bin/newsgroups
 	
 test: 
 	rm -f -R src/server/newsgroups
