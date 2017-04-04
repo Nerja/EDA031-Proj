@@ -34,3 +34,4 @@
 *.app
 server/mainserver
 client/client
+bin/*

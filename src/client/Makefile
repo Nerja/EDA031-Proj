@@ -10,7 +10,7 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $*.d
 # if you use clang++ and wish to use libc++ instead of GNU's libstdc++.
 # -g is for debugging.
 CPPFLAGS =  -std=c++11
-CXXFLAGS =  -O2 -Wall -Werror -Wextra -pedantic-errors -Wold-style-cast
+CXXFLAGS =  -O2 -Wall -Wextra -pedantic-errors -Wold-style-cast
 CXXFLAGS += -std=c++11
 CXXFLAGS += -g
 CXXFLAGS += $(DEPFLAGS)
@@ -21,9 +21,9 @@ LDLIBS = -lclientserver
 #LDFLAGS +=  -stdlib=libc++
 
 # Targets
-PROGS = mainserver
+PROGS = client
 
-mainserver: mainserver.o messagehandler.o commandparser.o filedatabase.o article.o newsgroup.o
+client: client.o
 
 all: $(PROGS)
 
@@ -34,7 +34,7 @@ all: $(PROGS)
 
 # Standard clean
 clean:
-	rm -f *.o $(PROGS)
+	rm -f *.a *.o $(PROGS)
 
 # Include the *.d files
 SRC = $(wildcard *.cc)
