@@ -9,6 +9,7 @@ build:
 	cd src/client && $(MAKE) all
 
 install:
+	mkdir -p bin
 	cp src/server/mainserver bin/
 	cp src/server/memorymainserver bin/
 	cp src/client/client bin/
